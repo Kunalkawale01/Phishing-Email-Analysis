@@ -1,0 +1,20 @@
+# Header analysis — steps and sample notes
+
+1. Paste the raw email headers into a free header analyzer (e.g., MXToolbox "Email Header Analyzer", Mail-Tester, or AbuseIPDB tools).
+
+2. Check the following:
+- `Received:` chain — does the originating IP match the vendor's mail servers?
+- `SPF` result — pass/neutral/fail?
+- `DKIM` — signature present and valid?
+- `DMARC` — policy and result?
+
+3. Example findings (replace with your analyzer output):
+
+- Received: from [34.201.45.68] (unknown [34.201.45.68])
+- SPF: `softfail` for sender `gmail.com` — suspicious.
+- DKIM: no valid signature for `acme.com`.
+- DMARC: `none` — no enforcement in place.
+
+Interpretation: The Received path indicates the message originated from a cloud VM IP (not from acme.com mail servers). Authentication checks did not confirm the sender as legitimate.
+
+Copy your analyzer output here for record-keeping and for the incident report.
